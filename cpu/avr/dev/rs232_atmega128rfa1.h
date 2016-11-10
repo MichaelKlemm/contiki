@@ -47,6 +47,13 @@
 #include <avr/io.h>
 
 /******************************************************************************/
+/***   Lookup definitions to configure port and baudrate by value             */
+/******************************************************************************/
+#define LOOKUP_DEFINITION(a, b) a ## b
+#define GET_UBRR(bdr) LOOKUP_DEFINITION(USART_BAUD_, bdr)
+#define GET_UART_PORT(port) LOOKUP_DEFINITION(RS232_PORT_, port)
+
+/******************************************************************************/
 /***   RS232 ports                                                            */
 /******************************************************************************/
 #define RS232_PORT_0 0

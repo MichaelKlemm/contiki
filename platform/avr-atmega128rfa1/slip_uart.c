@@ -76,18 +76,16 @@ static FILE slip_stdout = FDEV_SETUP_STREAM(slip_putchar, NULL,
 void
 slip_arch_init(unsigned long ubr)
 {
-  rs232_set_input(SLIP_PORT, slip_input_byte);
-  stdout = &slip_stdout;
+#if SLIP_ARCH_CONF_ENABLE == 1
+  rs232_set_input(GET_UART_PORT(SLIP_ARCH_CONF_UART), slip_input_byte);
+  // stdout = &slip_stdout; /* MKL: Why this was needed? */
+#endif
 }
 /*---------------------------------------------------------------------------*/
-/*
- XXX:
-      Currently, the following function is in cpu/avr/dev/rs232.c file. this
-      should be moved to here from there hence this is a platform specific slip 
-      related function. 
 void
 slip_arch_writeb(unsigned char c)
 {
-  rs232_send(RS232_PORT_0, c);
+#if SLIP_ARCH_CONF_ENABLE == 1
+  rs232_send(GET_UART_PORT(SLIP_ARCH_CONF_UART), c);
+#endif
 }
-*/

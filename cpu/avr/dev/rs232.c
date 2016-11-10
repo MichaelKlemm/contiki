@@ -414,12 +414,6 @@ rs232_printf(uint8_t port, const char *fmt, ...)
 }
 #endif
 /*---------------------------------------------------------------------------*/
-void
-slip_arch_writeb(unsigned char c)
-{
-  rs232_send(SLIP_PORT, c);
-}
-/*---------------------------------------------------------------------------*/
 int rs232_stdout_putchar(char c, FILE *stream);
 static uint8_t stdout_rs232_port=RS232_PORT_0;
 static FILE rs232_stdout = FDEV_SETUP_STREAM(rs232_stdout_putchar,

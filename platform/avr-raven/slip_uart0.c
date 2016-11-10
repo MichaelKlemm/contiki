@@ -80,14 +80,8 @@ slip_arch_init(unsigned long ubr)
   stdout = &slip_stdout;
 }
 /*---------------------------------------------------------------------------*/
-/*
- XXX:
-      Currently, the following function is in cpu/avr/dev/rs232.c file. this
-      should be moved to here from there hence this is a platform specific slip 
-      related function. 
 void
 slip_arch_writeb(unsigned char c)
 {
   rs232_send(RS232_PORT_0, c);
 }
-*/

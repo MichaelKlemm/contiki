@@ -69,15 +69,24 @@ void clock_adjust_ticks(clock_time_t howmany);
 /* The sleep timer requires the crystal and adds a TIMER2 interrupt routine if not already define by clock.c */
 #define AVR_CONF_USE32KCRYSTAL 0
 
-/* Michael Hartman's protobyte board has LED on PORTE1, used for radio on indication */
-/* However this results in disabling UART0. */
-#define RF230BB_CONF_LEDONPORTE1  0
+#if SLIP_ARCH_CONF_ENABLE == 1
+#ifndef SLIP_ARCH_CONF_UART
+#define SLIP_ARCH_CONF_UART         0 /**< UART to use with SLIP */
+#endif
 
-/* COM port to be used for SLIP connection. This is usually UART0, but see above */
-#if RF230BB_CONF_LEDONPORTE1
-#define SLIP_PORT RS232_PORT_1
-#else
-#define SLIP_PORT RS232_PORT_0
+#ifndef SLIP_CONF_BAUD_RATE
+#define SLIP_CONF_BAUD_RATE    115200 /**< Default SLIP baud rate */
+#endif
+#endif
+
+#if UART_DBG_CONF_ENABLE == 1
+#ifndef DBG_CONF_UART
+#define DBG_CONF_UART               1 /**< UART to use for debugging */
+#endif
+
+#ifndef DBG_CONF_BAUD_RATE
+#define DBG_CONF_BAUD_RATE     115200 /**< Default debug baud rate */
+#endif
 #endif
 
 /* Pre-allocated memory for loadable modules heap space (in bytes)*/
